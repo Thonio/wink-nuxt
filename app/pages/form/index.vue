@@ -1,0 +1,3 @@
+<template>
+  <Stepper />
+</template>

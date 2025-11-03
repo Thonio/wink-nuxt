@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+:root {
+  /* Nuxt UI default border color */
+  --ui-border: 234 236 240;
+}
+
+:root {
+  background-color: #F9FAFB;
+}
+
+body {
+  background-color: #F9FAFB;
+}
