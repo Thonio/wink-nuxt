@@ -52,5 +52,30 @@
       bottom-0
       right-[-78px]
       ">
+    <div class="
+      bg-white 
+      flex 
+      justify-between 
+      items-center 
+      border 
+      border-[#0072FF] 
+      rounded-lg 
+      px-3 
+      py-1 
+      w-full 
+      max-w-[210px]
+      absolute
+      bottom-4
+      ring-3
+      ring-blue-100
+      ">
+      <div>
+        <AvatarField text="AJ" class="mr-2" />
+        <span class="text-sm">Alain Provist</span>
+      </div>
+      <div>
+        <UIcon name="i-lucide-chevron-down" />
+      </div>
+    </div>
   </div>
 </template>
