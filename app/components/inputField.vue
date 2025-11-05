@@ -4,7 +4,7 @@ import theme from '#build/ui/input';
 import type { ComponentConfig } from '@nuxt/ui';
 type Input = ComponentConfig<typeof theme, AppConfig, 'input'>;
 
-const items:any[] = []
+const items: any[] = []
 
 defineProps<{
   label?: string,
@@ -29,7 +29,7 @@ function onInput(event: Event) {
 <template>
   <UFormField :label="label">
     <UTextarea v-if="type === 'textArea'" :value="modelValue" @input="onInput" :class="class" />
-    <USelect v-if="type === 'select'" :class :value="modelValue" :items="items" />
+    <USelect v-else-if="type === 'select'" :class :value="modelValue" :items="items" />
     <UInput v-else :value="modelValue" @input="onInput" size="lg" :class="class" :icon="icon" :variant="variant"
       :color="color" />
   </UFormField>
