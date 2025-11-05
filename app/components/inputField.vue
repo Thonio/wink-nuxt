@@ -4,8 +4,6 @@ import theme from '#build/ui/input';
 import type { ComponentConfig } from '@nuxt/ui';
 type Input = ComponentConfig<typeof theme, AppConfig, 'input'>;
 
-const items: any[] = []
-
 defineProps<{
   label?: string,
   icon?: string,
@@ -13,7 +11,8 @@ defineProps<{
   color?: Input['variants']['color'],
   class?: any,
   modelValue: string,
-  type?: string
+  type?: string,
+  items?: any[]
 }>()
 
 const emit = defineEmits<{

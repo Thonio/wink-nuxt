@@ -10,6 +10,29 @@ const emit = defineEmits<{
   (e: 'next', value: void): void
   (e: 'prev', value: void): void
 }>()
+const job = ref([
+  "Développeur web",
+  "Infirmier",
+  "Enseignant",
+  "Architecte",
+  "Comptable",
+  "Chef cuisinier",
+  "Journaliste",
+  "Ingénieur civil",
+  "Designer graphique",
+  "Mécanicien automobile"
+])
+const exp = ref([
+  "Debutant",
+  "Intermediaire",
+  "Expert"
+])
+const salary = ref([
+  "Moins de 10 personnes",
+  "10 - 20",
+  "20 - 30",
+  "Plus de 30"
+])
 
 function onFileChange(e: Event) {
   const target = e.target as HTMLInputElement
@@ -47,13 +70,13 @@ const isDisabled = computed(() => !company.value.trim())
     <h2 class="text-2xl font-semibold mb-6">Pour mieux vous connaître</h2>
     <div>
       <div class="grid grid-flow-row gap-5">
-        <InputField type="select" v-model="company" class="w-full" label="Votre métier *" />
+        <InputField :items="job" type="select" v-model="company" class="w-full" label="Votre métier *" />
         <InputSite v-model="site" label="Votre URL LinkedIn" class="w-full" />
-        <InputField v-model="address" class="w-full" label="Quelle est votre expérience dans le recrutement ?"
-          type="select" />
-        <InputField v-model="activity" class="w-full" label="Combien de personnes prévoyez-vous de recruter ? *"
-          type="select" />
-        <InputField v-model="activity" class="w-full" label="Pourquoi voulez-vous utiliser Wink ? *" type="select" />
+        <InputField :items="exp" v-model="address" class="w-full"
+          label="Quelle est votre expérience dans le recrutement ?" type="select" />
+        <InputField :items="salary" v-model="activity" class="w-full"
+          label="Combien de personnes prévoyez-vous de recruter ? *" type="select" />
+        <InputField v-model="activity" class="w-full" label="Pourquoi voulez-vous utiliser Wink ? *" />
         <div class="text-sm">Votre entreprise est-elle spécialisée dans le recrutement (recruteur indépendant, cabinet
           de recrutement, consultant en recrutement...) ?</div>
         <div class="flex">
