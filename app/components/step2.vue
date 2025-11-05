@@ -50,7 +50,7 @@ const isDisabled = computed(() => !company.value.trim())
       <div class="flex items-center gap-8 mb-5">
         <div>
           <div class="
-              rounded-full 
+              rounded-3xl 
               w-[72px]
               h-[72px] 
               text-[#667085] 
@@ -65,7 +65,7 @@ const isDisabled = computed(() => !company.value.trim())
               shadow-lg
               ">
             <img :src="preview" v-if="preview" />
-            <span v-else>{{ initials }}</span>
+            <UIcon v-else name="i-lucide-building-2" />
           </div>
         </div>
         <div>
