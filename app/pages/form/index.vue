@@ -12,7 +12,7 @@ const step = useState('step', () => 0)
       <Step2 @next="step++" @prev="step--" />
     </div>
     <div class="max-w-[864px] w-full flex relative" v-if="step === 2">
-      <Step3 />
+      <Step3 @prev="step--" />
     </div>
   </div>
 </template>
