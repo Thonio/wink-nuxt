@@ -1,3 +1,40 @@
+<script setup lang="ts">
+const firstName = ref('')
+const lastName = ref('')
+const address = ref('')
+const preview = ref('')
+const fileInput = ref<HTMLInputElement | null>(null)
+const emit = defineEmits<{
+  (e: 'next', value: void): void
+}>()
+
+function onFileChange(e: Event) {
+  const target = e.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  preview.value = URL.createObjectURL(file)
+}
+
+function triggerFileInput() {
+  fileInput.value?.click()
+}
+
+function clickNext() {
+  emit('next')
+}
+
+const initials = computed(() => {
+  const f = firstName.value.trim()
+  const l = lastName.value.trim()
+  if (!f && !l) return '?'
+  const first = f.charAt(0).toUpperCase() || ''
+  const last = l.charAt(0).toUpperCase() || ''
+  return `${first}${last}`
+})
+
+const isDisabled = computed(() => !firstName.value.trim() || !lastName.value.trim())
+</script>
 <template>
   <div class="max-w-[392px] grow">
     <h2 class="text-2xl font-semibold mb-6">Faisons connaissance</h2>
@@ -19,23 +56,28 @@
               border-3
               border-white
               shadow-lg
+              overflow-hidden
               ">
-            AJ</div>
+            <img :src="preview" v-if="preview" />
+            <span v-else>{{ initials }}</span>
+          </div>
         </div>
         <div>
           <div class="flex gap-2">
-            <UButton icon="i-lucide-upload" color="neutral" variant="outline">Ajouter une photo</UButton>
+            <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileChange" />
+            <UButton @click="triggerFileInput" icon="i-lucide-upload" color="neutral" variant="outline">Ajouter une
+              photo</UButton>
             <UButton variant="outline" color="neutral">Supprimer</UButton>
           </div>
           <p>au format *.png ou *.jpeg</p>
         </div>
       </div>
       <div class="grid grid-flow-row gap-5">
-        <InputField class="w-full" label="Prénom" />
-        <InputField class="w-full" label="Nom" />
-        <InputField class="w-full" label="Adresse mail" icon="i-lucide-mail" />
+        <InputField v-model="firstName" class="w-full" label="Prénom" />
+        <InputField v-model="lastName" class="w-full" label="Nom" />
+        <InputField v-model="address" class="w-full" label="Adresse mail" icon="i-lucide-mail" />
         <div>
-          <UButton class="w-full flex justify-center">Continuer</UButton>
+          <UButton class="w-full flex justify-center" :disabled="isDisabled" @click="clickNext">Continuer</UButton>
         </div>
       </div>
     </div>
@@ -70,8 +112,8 @@
       ring-blue-100
       ">
       <div>
-        <AvatarField text="AJ" class="mr-2" />
-        <span class="text-sm">Alain Provist</span>
+        <AvatarField :text="initials" :img="preview" class="mr-2" />
+        <span class="text-sm">{{ firstName }} {{ lastName }}</span>
       </div>
       <div>
         <UIcon name="i-lucide-chevron-down" />

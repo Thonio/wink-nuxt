@@ -9,11 +9,25 @@ defineProps<{
   icon?: string,
   variant?: Input['variants']['variant'],
   color?: Input['variants']['color'],
-  class?: any
+  class?: any,
+  modelValue: string,
+  type?: string
 }>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
+
+function onInput(event: Event) {
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
+}
+
 </script>
 <template>
   <UFormField :label="label">
-    <UInput size="lg" :class="class" :icon="icon" :variant="variant" :color="color" />
+    <UTextarea v-if="type === 'textArea'" :value="modelValue" @input="onInput" :class="class" />
+    <UInput v-else :value="modelValue" @input="onInput" size="lg" :class="class" :icon="icon" :variant="variant"
+      :color="color" />
   </UFormField>
 </template>
