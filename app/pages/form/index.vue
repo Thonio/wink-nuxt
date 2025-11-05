@@ -5,16 +5,14 @@ const step = useState('step', () => 0)
 <template>
   <Stepper :default-value="step" />
   <div class="flex justify-center">
-    <div class="max-w-[864px] w-full">
-      <div v-if="step === 0">
-        <Step1 />
-      </div>
-      <div v-if="step === 1">
-        <Step2 />
-      </div>
-      <div v-if="step === 2">
-        <Step3 />
-      </div>
+    <div class="max-w-[864px] w-full flex relative pb-8" v-if="step === 0">
+      <Step1 />
+    </div>
+    <div class="max-w-[864px] w-full flex relative" v-if="step === 1">
+      <Step2 />
+    </div>
+    <div class="max-w-[864px] w-full flex relative" v-if="step === 2">
+      <Step3 />
     </div>
   </div>
 </template>

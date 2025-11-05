@@ -14,6 +14,6 @@ defineProps<{
 </script>
 <template>
   <UFormField :label="label">
-    <UInput :class="class" :icon="icon" :variant="variant" :color="color" />
+    <UInput size="lg" :class="class" :icon="icon" :variant="variant" :color="color" />
   </UFormField>
 </template>
