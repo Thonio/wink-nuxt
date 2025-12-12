@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { z } from 'zod'
+
+const emailSchema = z.string().email('Veuillez entrer une adresse email valide')
+
 const firstName = ref('')
 const lastName = ref('')
-const address = ref('')
+const mail = ref('')
 const preview = ref('')
 const fileInput = ref<HTMLInputElement | null>(null)
+const emailError = ref('')
 const emit = defineEmits<{
   (e: 'next', value: void): void
 }>()
@@ -33,7 +38,30 @@ const initials = computed(() => {
   return `${first}${last}`
 })
 
-const isDisabled = computed(() => !firstName.value.trim() || !lastName.value.trim())
+function validateEmail() {
+  if (!mail.value.trim()) {
+    emailError.value = ''
+    return true
+  }
+  const result = emailSchema.safeParse(mail.value)
+  if (!result.success) {
+    emailError.value = result.error.issues[0]?.message || 'Veuillez entrer une adresse email valide'
+    return false
+  }
+  emailError.value = ''
+  return true
+}
+
+watch(mail, () => {
+  validateEmail()
+})
+
+const isEmailValid = computed(() => {
+  if (!mail.value.trim()) return false
+  return emailSchema.safeParse(mail.value).success
+})
+
+const isDisabled = computed(() => !firstName.value.trim() || !lastName.value.trim() || !isEmailValid.value)
 </script>
 <template>
   <div class="max-w-[392px] grow">
@@ -75,7 +103,10 @@ const isDisabled = computed(() => !firstName.value.trim() || !lastName.value.tri
       <div class="grid grid-flow-row gap-5">
         <InputField v-model="firstName" class="w-full" label="Prénom" />
         <InputField v-model="lastName" class="w-full" label="Nom" />
-        <InputField v-model="address" class="w-full" label="Adresse mail" icon="i-lucide-mail" />
+        <div>
+          <InputField v-model="mail" class="w-full" label="Adresse mail" icon="i-lucide-mail" :color="emailError ? 'error' : undefined" />
+          <p v-if="emailError" class="text-red-500 text-sm mt-1">{{ emailError }}</p>
+        </div>
         <div>
           <UButton class="w-full flex justify-center" :disabled="isDisabled" @click="clickNext">Continuer</UButton>
         </div>
