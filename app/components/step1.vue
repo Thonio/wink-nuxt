@@ -29,15 +29,6 @@ function clickNext() {
   emit('next')
 }
 
-const initials = computed(() => {
-  const f = firstName.value.trim()
-  const l = lastName.value.trim()
-  if (!f && !l) return '?'
-  const first = f.charAt(0).toUpperCase() || ''
-  const last = l.charAt(0).toUpperCase() || ''
-  return `${first}${last}`
-})
-
 function validateEmail() {
   if (!mail.value.trim()) {
     emailError.value = ''
@@ -51,6 +42,16 @@ function validateEmail() {
   emailError.value = ''
   return true
 }
+
+const initials = computed(() => {
+  const f = firstName.value.trim()
+  const l = lastName.value.trim()
+  if (!f && !l) return '?'
+  const first = f.charAt(0).toUpperCase() || ''
+  const last = l.charAt(0).toUpperCase() || ''
+  return `${first}${last}`
+})
+
 
 watch(mail, () => {
   validateEmail()

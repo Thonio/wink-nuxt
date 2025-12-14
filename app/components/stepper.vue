@@ -19,8 +19,12 @@ const { defaultValue } = defineProps<{
 <template>
   <div class="flex justify-center">
     <div class="mb-6 max-w-[816px] w-full">
-      <UStepper :items="items" :default-value="defaultValue"
-        :ui="{ indicator: 'w-[24px] h-[24px] text-sm', trigger: 'w-[24px] h-[24px]' }" />
+      <UStepper 
+        disabled
+        :items="items" 
+        :default-value="defaultValue"
+        :ui="{ indicator: 'w-[24px] h-[24px] text-sm', trigger: 'w-[24px] h-[24px]' }" 
+      />
     </div>
   </div>
 </template>
