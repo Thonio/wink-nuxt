@@ -87,6 +87,8 @@ const isDisabled = computed(() => !company.value.trim())
     </div>
   </div>
   <div class="
+      hidden
+      lg:block
       flex-1 
       w-[407px] 
       h-[480px] 
