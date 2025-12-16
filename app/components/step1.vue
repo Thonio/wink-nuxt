@@ -115,6 +115,8 @@ const isDisabled = computed(() => !firstName.value.trim() || !lastName.value.tri
     </div>
   </div>
   <div class="
+      hidden
+      lg:block
       flex-1 
       w-[407px] 
       h-[480px] 
